@@ -9,6 +9,7 @@ type RootStackParamList = {
   Selection: undefined;
   Drawing: undefined;
   Painting: undefined;
+  Test: undefined;
 };
 
 type SelectionScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Selection'>;
@@ -29,6 +30,12 @@ const SelectionScreen = () => {
         onPress={() => navigation.navigate('Painting')}
       >
         <Text style={styles.buttonText}>Painting</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Test')}
+      >
+        <Text style={styles.buttonText}>Test Screewn</Text>
       </TouchableOpacity>
     </View>
   );
