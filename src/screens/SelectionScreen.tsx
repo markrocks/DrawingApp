@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 // Define the RootStackParamList to match your navigation structure
 type RootStackParamList = {
@@ -10,9 +10,14 @@ type RootStackParamList = {
   Drawing: undefined;
   Painting: undefined;
   Test: undefined;
+  Tes2: undefined;
+  PaintTest: undefined;
 };
 
-type SelectionScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Selection'>;
+type SelectionScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Selection'
+>;
 
 const SelectionScreen = () => {
   const navigation = useNavigation<SelectionScreenNavigationProp>();
@@ -21,21 +26,28 @@ const SelectionScreen = () => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Drawing')}
-      >
+        onPress={() => navigation.navigate('Drawing')}>
         <Text style={styles.buttonText}>Drawing</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Painting')}
-      >
+        onPress={() => navigation.navigate('Painting')}>
         <Text style={styles.buttonText}>Painting</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Test')}
-      >
-        <Text style={styles.buttonText}>Test Screewn</Text>
+        onPress={() => navigation.navigate('Test')}>
+        <Text style={styles.buttonText}>Test Screen</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Test2')}>
+        <Text style={styles.buttonText}>Test Screen2</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('PaintTest')}>
+        <Text style={styles.buttonText}>Paint Test</Text>
       </TouchableOpacity>
     </View>
   );
