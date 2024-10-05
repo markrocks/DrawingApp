@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text } from "react-native";
+
+import React, {useState} from 'react';
+import {SafeAreaView, Text} from 'react-native';
 import {
   Gesture,
   GestureDetector,
   GestureHandlerRootView,
-} from "react-native-gesture-handler";
+} from 'react-native-gesture-handler';
 
 export default function GestureDemo() {
   const [tGestureStart, setTGestureStart] = useState<undefined | string>();
@@ -13,8 +14,9 @@ export default function GestureDemo() {
   const [tGestureEnd, setTGestureEnd] = useState<undefined | string>();
 
   const pan = Gesture.Pan()
-    .onStart((g) => {
-      // Start gesture looks like this 
+  .runOnJS(true)
+    .onStart(g => {
+      // Start gesture looks like this
       // {
       //   "absoluteX": 178,
       //   "absoluteY": 484,
@@ -32,40 +34,40 @@ export default function GestureDemo() {
       // }
       setTGestureStart(`${Math.round(g.x)}, ${Math.round(g.y)}`);
     })
-    .onTouchesMove((g) => {
-    // Move gesture looks like this
-    // {
-    //   "allTouches": Array [
-    //     {
-    //       "absoluteX": 123.33332824707031,
-    //       "absoluteY": 449,
-    //       "id": 0,
-    //       "x": 123.33332824707031,
-    //       "y": 449,
-    //     },
-    //   ],
-    //   "changedTouches": Array [
-    //    {
-    //       "absoluteX": 123.33332824707031,
-    //       "absoluteY": 449,
-    //       "id": 0,
-    //       "x": 123.33332824707031,
-    //       "y": 449,
-    //     },
-    //   ],
-    //   "eventType": 2,
-    //   "handlerTag": 2,
-    //   "numberOfTouches": 1,
-    //   "state": 4,
-    //   "target": 115,
-    // }
+    .onTouchesMove(g => {
+      // Move gesture looks like this
+      // {
+      //   "allTouches": Array [
+      //     {
+      //       "absoluteX": 123.33332824707031,
+      //       "absoluteY": 449,
+      //       "id": 0,
+      //       "x": 123.33332824707031,
+      //       "y": 449,
+      //     },
+      //   ],
+      //   "changedTouches": Array [
+      //    {
+      //       "absoluteX": 123.33332824707031,
+      //       "absoluteY": 449,
+      //       "id": 0,
+      //       "x": 123.33332824707031,
+      //       "y": 449,
+      //     },
+      //   ],
+      //   "eventType": 2,
+      //   "handlerTag": 2,
+      //   "numberOfTouches": 1,
+      //   "state": 4,
+      //   "target": 115,
+      // }
       setTGestureMove(
         `${Math.round(g.changedTouches[0].x)}, ${Math.round(
-          g.changedTouches[0].y
-        )}`
+          g.changedTouches[0].y,
+        )}`,
       );
     })
-    .onUpdate((g) => {
+    .onUpdate(g => {
       // Update gesture looks like
       // {
       //   "absoluteX": 229,
@@ -83,7 +85,7 @@ export default function GestureDemo() {
       // }
       setTGestureUpdate(`${Math.round(g.x)}, ${Math.round(g.y)}`);
     })
-    .onEnd((g) => {
+    .onEnd(g => {
       // End gesture looks like this
       // {
       //   "absoluteX": 213.3333282470703,
@@ -103,23 +105,97 @@ export default function GestureDemo() {
       setTGestureEnd(`${Math.round(g.x)}, ${Math.round(g.y)}`);
     });
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <GestureDetector gesture={pan}>
-        <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
-          <Text
-            style={{ color: "white", fontSize: 24 }}
-          >{`Gesture started at:  ${tGestureStart}`}</Text>
-          <Text
-            style={{ color: "white", fontSize: 24 }}
-          >{`Gesture moved to:  ${tGestureMove}`}</Text>
-          <Text
-            style={{ color: "white", fontSize: 24 }}
-          >{`Gesture updated to:  ${tGestureUpdate}`}</Text>
-          <Text
-            style={{ color: "white", fontSize: 24 }}
-          >{`Gesture ended at:  ${tGestureEnd}`}</Text>
-        </SafeAreaView>
-      </GestureDetector>
-    </GestureHandlerRootView>
+    <GestureDetector gesture={pan}>
+      <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 24,
+          }}>{`Gesture started at:  ${tGestureStart}`}</Text>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 24,
+          }}>{`Gesture moved to:  ${tGestureMove}`}</Text>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 24,
+          }}>{`Gesture updated to:  ${tGestureUpdate}`}</Text>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 24,
+          }}>{`Gesture ended at:  ${tGestureEnd}`}</Text>
+      </SafeAreaView>
+    </GestureDetector>
   );
 }
+
+/** 
+import React, {useState} from 'react';
+import { StyleSheet } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import {SafeAreaView, Text} from 'react-native';
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+
+const END_POSITION = 200;
+
+
+export default function App() {
+    const [tGestureStart, setTGestureStart] = useState<undefined | string>("XXX");
+  const onLeft = useSharedValue(true);
+  const position = useSharedValue(0);
+
+  const panGesture = Gesture.Pan()
+  .runOnJS(true)
+    .onUpdate((e) => {
+      if (onLeft.value) {
+        position.value = e.translationX;
+      } else {
+        position.value = END_POSITION + e.translationX;
+      }
+      setTGestureStart("STart val");
+    })
+    .onEnd((e) => {
+      if (position.value > END_POSITION / 2) {
+        position.value = withTiming(END_POSITION, { duration: 100 });
+        onLeft.value = false;
+      } else {
+        position.value = withTiming(0, { duration: 100 });
+        onLeft.value = true;
+      }
+    });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: position.value }],
+  }));
+
+  return (
+    <GestureDetector gesture={panGesture}>
+      <Animated.View style={[styles.box, animatedStyle]} >
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 24,
+          }}>{`Gesture updated to:  ${position.value }`}</Text>
+      </Animated.View>
+    </GestureDetector>
+  );
+}
+
+const styles = StyleSheet.create({
+  box: {
+    height: 121,
+    width: 120,
+    backgroundColor: '#b58df1',
+    borderRadius: 20,
+    marginBottom: 30,
+  },
+});
+
+**/
