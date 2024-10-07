@@ -5,7 +5,7 @@ import LoadingScreen from './src/screens/LoadingScreen';
 import SelectionScreen from './src/screens/SelectionScreen';
 import DrawingScreen from './src/screens/DrawingScreen';
 import PaintingScreen from './src/screens/PaintingScreen';
-import DrawTestScreen from './src/screens/DrawTestScreen';
+import DrawTestScreen from './src/screens/GestureLocScreen';
 import DrawTestScreen2 from './src/screens/DrawTestScreen2';
 import PaintTestScreen from './src/screens/PaintTestScreen';
 import {

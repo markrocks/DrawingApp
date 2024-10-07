@@ -4,7 +4,6 @@ import {PanResponder, GestureResponderEvent} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 import ToolSelector from '../components/ToolSelector';
 import ColorPalette from '../components/ColorPalette';
-
 // import Canvas from '../components/Canvas';
 
 interface PathData {

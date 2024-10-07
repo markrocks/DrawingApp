@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import {
@@ -14,7 +13,7 @@ export default function GestureDemo() {
   const [tGestureEnd, setTGestureEnd] = useState<undefined | string>();
 
   const pan = Gesture.Pan()
-  .runOnJS(true)
+    .runOnJS(true)
     .onStart(g => {
       // Start gesture looks like this
       // {

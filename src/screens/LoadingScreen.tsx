@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, ActivityIndicator } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../App';
+import React, {useEffect} from 'react';
+import {View, Image, StyleSheet, ActivityIndicator} from 'react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../App';
 
-type LoadingScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Loading'>;
+type LoadingScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Loading'
+>;
 
 interface LoadingScreenProps {
   navigation: LoadingScreenNavigationProp;
 }
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ navigation }) => {
+const LoadingScreen: React.FC<LoadingScreenProps> = ({navigation}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace('Selection');
